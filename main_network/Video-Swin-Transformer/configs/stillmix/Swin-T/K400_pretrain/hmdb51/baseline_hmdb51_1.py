@@ -4,11 +4,11 @@ _base_ = [
 
 # dataset settings
 dataset_type = 'RawframeDataset'
-data_root = '/home/xxx/xxx/datasets/HMDB51/jpegs_256'
+data_root = '/home/jo869742/PythonProjects/action_recognition/StillMix/main_network/mmaction2/data/hmdb51/rawframes'
 split = 1  # official train/test splits. valid numbers: 1, 2, 3
-ann_file_train = f'/home/xxx/xxx/work/dataset_config/HMDB51/lists/trainlist0{split}.txt'
-ann_file_val = f'/home/xxx/xxx/work/dataset_config/HMDB51/lists/testlist0{split}.txt'
-ann_file_test = f'/home/xxx/xxx/work/dataset_config/HMDB51/lists/testlist0{split}.txt'
+ann_file_train = f'/home/jo869742/PythonProjects/action_recognition/StillMix/main_network/mmaction2/data/hmdb51/trainlist0{split}.txt'
+ann_file_val = f'/home/jo869742/PythonProjects/action_recognition/StillMix/main_network/mmaction2/data/hmdb51/testlist0{split}.txt'
+ann_file_test = f'/home/jo869742/PythonProjects/action_recognition/StillMix/main_network/mmaction2/data/hmdb51/testlist0{split}.txt'
 # ann_file_train = f'/home/xxx/xxx/work/dataset_config/HMDB51/lists/trainlist0{split}_train.txt'
 # ann_file_val = f'/home/xxx/xxx/work/dataset_config/HMDB51/lists/trainlist0{split}_val.txt'
 # ann_file_test = f'/home/xxx/xxx/work/dataset_config/HMDB51/lists/testlist0{split}.txt'
@@ -64,7 +64,7 @@ test_pipeline = [
     dict(type='ToTensor', keys=['imgs'])
 ]
 data = dict(
-    videos_per_gpu=12,
+    videos_per_gpu=4,
     workers_per_gpu=0,
     train_dataloader=dict(drop_last=True),
     val_dataloader=dict(
@@ -97,7 +97,8 @@ evaluation = dict(
     interval=30, metrics=['top_k_accuracy', 'mean_class_accuracy'])
 
 # optimizer
-optimizer = dict(type='AdamW', lr=3.75e-4, betas=(0.9, 0.999), weight_decay=0.05,
+# optimizer = dict(type='AdamW', lr=3.75e-4, betas=(0.9, 0.999), weight_decay=0.05,
+optimizer = dict(type='AdamW', lr=1.25e-4, betas=(0.9, 0.999), weight_decay=0.05,
                  paramwise_cfg=dict(custom_keys={'absolute_pos_embed': dict(decay_mult=0.),
                                                  'relative_position_bias_table': dict(decay_mult=0.),
                                                  'norm': dict(decay_mult=0.),
